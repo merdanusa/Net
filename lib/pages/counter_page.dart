@@ -40,7 +40,7 @@ class _CounterPageState extends State<CounterPage> {
               onPressed: () {
                 setState(() {
                   count--;
-                  if (count < 0) {
+                  if (count <= 0) {
                     count = 0;
                   }
                 });
