@@ -40,6 +40,9 @@ class _CounterPageState extends State<CounterPage> {
               onPressed: () {
                 setState(() {
                   count--;
+                  if (count < 0) {
+                    count = 0;
+                  }
                 });
               },
               child: const Text("Decrease"),
