@@ -38,6 +38,15 @@ class _CounterPageState extends State<CounterPage> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
+                setState(() {
+                  count--;
+                });
+              },
+              child: const Text("Decrease"),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
                 Navigator.pop(context);
               },
               style: ButtonStyle(
