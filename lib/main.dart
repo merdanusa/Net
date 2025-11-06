@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'My Black App',
       theme: ThemeData.dark(),
-      home: const HomePage(),
+      home: const AuthPage(),
       routes: {
         '/auth': (context) => const AuthPage(),
         '/counter': (context) => const CounterPage(),
