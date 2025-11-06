@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'counter_page.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  final User user;
+  const HomePage({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -16,29 +17,16 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
-              "Welcome to Home Page",
-              style: TextStyle(color: Colors.white, fontSize: 20),
+            Text(
+              "Welcome, ${user.email}",
+              style: const TextStyle(color: Colors.white, fontSize: 22),
             ),
             const SizedBox(height: 20),
-
             ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/counter');
               },
               child: const Text("Go to Counter Page (Named Route)"),
-            ),
-
-            const SizedBox(height: 20),
-
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const CounterPage()),
-                );
-              },
-              child: const Text("Go to Counter Page (Direct Route)"),
             ),
           ],
         ),

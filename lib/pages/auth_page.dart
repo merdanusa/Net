@@ -160,6 +160,11 @@ class _AuthPageState extends State<AuthPage>
                                     authSubmit = true;
                                     modal = false;
                                   });
+                                  Navigator.pushReplacementNamed(
+                                    context,
+                                    '/home',
+                                    arguments: user,
+                                  );
                                 },
                                 child: Text(
                                   isSignIn ? "Sign In" : "Create Account",

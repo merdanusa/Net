@@ -14,9 +14,12 @@ class MyApp extends StatelessWidget {
       title: 'My Black App',
       theme: ThemeData.dark(),
       home: const AuthPage(),
-      routes: {
-        '/auth': (context) => const AuthPage(),
-        '/counter': (context) => const CounterPage(),
+      onGenerateRoute: (settings) {
+        if (settings.name == '/home') {
+          final user = settings.arguments as User;
+          return MaterialPageRoute(builder: (_) => HomePage(user: user));
+        }
+        return null;
       },
     );
   }
