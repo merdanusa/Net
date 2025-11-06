@@ -14,7 +14,10 @@ class MyApp extends StatelessWidget {
       title: 'My Black App',
       theme: ThemeData.dark(),
       home: const HomePage(),
-      routes: {'/counter': (context) => const CounterPage()},
+       routes: {
+        '/auth': (context) => const AuthPage(),    
+        '/counter': (context) => const CounterPage(),
+      },
     );
   }
 }
