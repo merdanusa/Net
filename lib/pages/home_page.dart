@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'counter_page.dart';
+import 'auth_page.dart';
 
 class HomePage extends StatelessWidget {
   final User user;
