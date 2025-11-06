@@ -160,12 +160,25 @@ class _AuthPageState extends State<AuthPage>
                                     authSubmit = true;
                                     modal = false;
                                   });
-                                  Navigator.pushReplacementNamed(
-                                    context,
-                                    '/home',
-                                    arguments: user,
-                                  );
+
+                                  if ((user.email ?? '').isNotEmpty &&
+                                      (user.password ?? '').isNotEmpty) {
+                                    Navigator.pushReplacementNamed(
+                                      context,
+                                      '/home',
+                                      arguments: user,
+                                    );
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          "Please fill in all fields",
+                                        ),
+                                      ),
+                                    );
+                                  }
                                 },
+
                                 child: Text(
                                   isSignIn ? "Sign In" : "Create Account",
                                   style: TextStyle(color: Colors.white),
