@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'pages/auth_page.dart'
 import 'pages/home_page.dart';
 import 'pages/counter_page.dart';
 
