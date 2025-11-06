@@ -79,7 +79,7 @@ class _AuthPage extends State<AuthPage> {
                         });
                       },
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20),
                     TextField(
                       decoration: const InputDecoration(labelText: "Password"),
                       obscureText: true,
@@ -89,6 +89,7 @@ class _AuthPage extends State<AuthPage> {
                         });
                       },
                     ),
+                    const SizedBox(height: 20),
                     if (!isSignIn)
                       TextField(
                         decoration: const InputDecoration(
@@ -104,7 +105,7 @@ class _AuthPage extends State<AuthPage> {
                     const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
-                        setState(() => isSignIn = false);
+                        setState(() => isSignIn = !isSignIn);
                       },
                       child: Text(
                         isSignIn
@@ -112,6 +113,7 @@ class _AuthPage extends State<AuthPage> {
                             : "Have you got an account then Sign In",
                       ),
                     ),
+
                     const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
