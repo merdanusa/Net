@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:ui';
 
 class User {
   String? email;
@@ -9,10 +10,11 @@ class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
 
   @override
-  State<AuthPage> createState() => _AuthPage();
+  State<AuthPage> createState() => _AuthPageState();
 }
 
-class _AuthPage extends State<AuthPage> {
+class _AuthPageState extends State<AuthPage>
+    with SingleTickerProviderStateMixin {
   bool modal = false;
   bool isSignIn = true;
   bool reConfirm = false;
@@ -26,107 +28,189 @@ class _AuthPage extends State<AuthPage> {
       body: Stack(
         alignment: Alignment.center,
         children: [
-          if (!modal)
-            Center(
+          AnimatedOpacity(
+            opacity: modal ? 0 : 1,
+            duration: const Duration(milliseconds: 400),
+            child: Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const Text(
-                    "Let us get access crossover Ethernet!",
-                    style: TextStyle(color: Colors.white, fontSize: 32),
+                    "Let us get access\ncrossover Ethernet!",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                      fontWeight: FontWeight.w600,
+                    ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 30),
                   ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        modal = true;
-                      });
-                    },
-                    style: ButtonStyle(
-                      padding: MaterialStateProperty.all(
-                        const EdgeInsets.all(20),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 30,
+                        vertical: 16,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
                       ),
                     ),
+                    onPressed: () => setState(() => modal = true),
                     child: const Text("Authenticate"),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  Text(
-                    user.email == null ? "" : "Email: ${user.email}",
-                    style: const TextStyle(color: Colors.white, fontSize: 18),
                   ),
                 ],
               ),
             ),
+          ),
 
-          if (modal)
-            Center(
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                width: 360,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text("Sign in", style: TextStyle(fontSize: 20)),
-                    const SizedBox(height: 20),
-                    TextField(
-                      decoration: const InputDecoration(labelText: "Email"),
-                      onChanged: (value) {
-                        setState(() {
-                          user.email = value;
-                        });
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                    TextField(
-                      decoration: const InputDecoration(labelText: "Password"),
-                      obscureText: true,
-                      onChanged: (value) {
-                        setState(() {
-                          user.password = value;
-                        });
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                    if (!isSignIn)
-                      TextField(
-                        decoration: const InputDecoration(
-                          labelText: "Re-confirm password",
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 450),
+            reverseDuration: const Duration(milliseconds: 300),
+            child: modal
+                ? SlideFade(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(18),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
+                        child: Container(
+                          width: 350,
+                          padding: const EdgeInsets.all(22),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.08),
+                            borderRadius: BorderRadius.circular(18),
+                            border: Border.all(
+                              color: Colors.white.withOpacity(0.25),
+                            ),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                isSignIn ? "Sign In" : "Sign Up",
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 24,
+                                ),
+                              ),
+
+                              const SizedBox(height: 24),
+                              _field("Email", (v) => user.email = v),
+                              const SizedBox(height: 16),
+                              _field(
+                                "Password",
+                                (v) => user.password = v,
+                                obscure: true,
+                              ),
+
+                              if (!isSignIn) ...[
+                                const SizedBox(height: 16),
+                                _field(
+                                  "Re-confirm Password",
+                                  (v) => setState(
+                                    () => reConfirm = (user.password == v),
+                                  ),
+                                  obscure: true,
+                                ),
+                              ],
+
+                              const SizedBox(height: 24),
+                              GestureDetector(
+                                onTap: () =>
+                                    setState(() => isSignIn = !isSignIn),
+                                child: Text(
+                                  isSignIn
+                                      ? "Don't have an account? Sign Up"
+                                      : "Already have an account? Sign In",
+                                  style: const TextStyle(
+                                    color: Colors.blueAccent,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 28),
+
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.blueAccent,
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 32,
+                                    vertical: 16,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                  ),
+                                ),
+                                onPressed: () {},
+                                child: Text(
+                                  isSignIn ? "Sign In" : "Create Account",
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+
+                              TextButton(
+                                onPressed: () => setState(() => modal = false),
+                                child: const Text(
+                                  "Close",
+                                  style: TextStyle(color: Colors.white70),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        obscureText: true,
-                        onChanged: (value) {
-                          setState(() {
-                            reConfirm = (user.password == value);
-                          });
-                        },
-                      ),
-                    const SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() => isSignIn = !isSignIn);
-                      },
-                      child: Text(
-                        isSignIn
-                            ? "Haven't you got an account then Sign Up"
-                            : "Have you got an account then Sign In",
                       ),
                     ),
-
-                    const SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() => modal = false);
-                      },
-                      child: const Text("Close"),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+                  )
+                : const SizedBox.shrink(),
+          ),
         ],
       ),
+    );
+  }
+
+  Widget _field(
+    String label,
+    Function(String) onChanged, {
+    bool obscure = false,
+  }) {
+    return TextField(
+      style: const TextStyle(color: Colors.white),
+      obscureText: obscure,
+      decoration: InputDecoration(
+        labelText: label,
+        labelStyle: const TextStyle(color: Colors.white70),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14),
+          borderSide: BorderSide(color: Colors.white24),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14),
+          borderSide: BorderSide(color: Colors.blueAccent),
+        ),
+        fillColor: Colors.white.withOpacity(0.06),
+        filled: true,
+      ),
+      onChanged: onChanged,
+    );
+  }
+}
+
+class SlideFade extends StatelessWidget {
+  final Widget child;
+  const SlideFade({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return TweenAnimationBuilder(
+      tween: Tween<double>(begin: 0.85, end: 1),
+      duration: const Duration(milliseconds: 450),
+      curve: Curves.easeOutCubic,
+      builder: (context, value, child) {
+        return Transform.scale(
+          scale: value,
+          child: Opacity(opacity: value, child: child),
+        );
+      },
+      child: child,
     );
   }
 }
