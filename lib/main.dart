@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'pages/auth_page.dart'
+import 'pages/auth_page.dart';
 import 'pages/home_page.dart';
 import 'pages/counter_page.dart';
 
@@ -14,8 +14,8 @@ class MyApp extends StatelessWidget {
       title: 'My Black App',
       theme: ThemeData.dark(),
       home: const HomePage(),
-       routes: {
-        '/auth': (context) => const AuthPage(),    
+      routes: {
+        '/auth': (context) => const AuthPage(),
         '/counter': (context) => const CounterPage(),
       },
     );
