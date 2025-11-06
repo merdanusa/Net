@@ -18,6 +18,7 @@ class _AuthPageState extends State<AuthPage>
   bool modal = false;
   bool isSignIn = true;
   bool reConfirm = false;
+  bool authSubmit = true;
 
   final User user = User();
 
@@ -44,17 +45,31 @@ class _AuthPageState extends State<AuthPage>
                     ),
                     textAlign: TextAlign.center,
                   ),
+
+                  if (authSubmit) ...[
+                    const SizedBox(height: 25),
+
+                    if (user.email != null && user.password != null) ...[
+                      Text(
+                        "Email: ${user.email}",
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        "Password: ${user.password}",
+                        style: const TextStyle(
+                          color: Colors.white70,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ],
+
                   const SizedBox(height: 30),
                   ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 30,
-                        vertical: 16,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
                     onPressed: () => setState(() => modal = true),
                     child: const Text("Authenticate"),
                   ),
@@ -140,9 +155,15 @@ class _AuthPageState extends State<AuthPage>
                                     borderRadius: BorderRadius.circular(14),
                                   ),
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  setState(() {
+                                    authSubmit = true;
+                                    modal = false;
+                                  });
+                                },
                                 child: Text(
                                   isSignIn ? "Sign In" : "Create Account",
+                                  style: TextStyle(color: Colors.white),
                                 ),
                               ),
                               const SizedBox(height: 16),
