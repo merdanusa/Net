@@ -15,6 +15,7 @@ class AuthPage extends StatefulWidget {
 class _AuthPage extends State<AuthPage> {
   bool modal = false;
   bool isSignIn = true;
+  bool reConfirm = false;
 
   final User user = User();
 
@@ -88,12 +89,28 @@ class _AuthPage extends State<AuthPage> {
                         });
                       },
                     ),
+                    if (!isSignIn)
+                      TextField(
+                        decoration: const InputDecoration(
+                          labelText: "Re-confirm password",
+                        ),
+                        obscureText: true,
+                        onChanged: (value) {
+                          setState(() {
+                            reConfirm = (user.password == value);
+                          });
+                        },
+                      ),
                     const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
                         setState(() => isSignIn = false);
                       },
-                      child: const Text("Don't have an account then Sign Up"),
+                      child: Text(
+                        isSignIn
+                            ? "Haven't you got an account then Sign Up"
+                            : "Have you got an account then Sign In",
+                      ),
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton(
