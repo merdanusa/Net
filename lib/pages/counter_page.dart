@@ -53,7 +53,7 @@ class _CounterPageState extends State<CounterPage> {
                 Navigator.pop(context);
               },
               style: ButtonStyle(
-                padding: MaterialStateProperty.all(const EdgeInsets.all(20)),
+                padding: WidgetStateProperty.all(const EdgeInsets.all(20)),
               ),
               child: const Text("Back"),
             ),
