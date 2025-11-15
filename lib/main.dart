@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
         ),
       ),
-      home: AuthPage(),
+      home: const AuthPage(),
     );
   }
 }
@@ -29,10 +29,17 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
+  int currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Net"), centerTitle: true),
+      body: currentIndex == 0
+          ? Center(child: Text('1'))
+          : currentIndex == 1
+          ? Center(child: Text("2"))
+          : Center(child: Text("3")),
       floatingActionButton: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -50,8 +57,13 @@ class _AuthPageState extends State<AuthPage> {
           ),
           NavigationDestination(icon: Icon(Icons.settings), label: "Options"),
         ],
-        selectedIndex: 0,
+        onDestinationSelected: (value) {
+          setState(() {
+            currentIndex = value;
+          });
+        },
+        selectedIndex: currentIndex,
       ),
     );
-  }
+    }
 }
