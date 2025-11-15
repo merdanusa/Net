@@ -10,8 +10,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'VPN',
-      theme: ThemeData.dark(),
+      debugShowCheckedModeBanner: false,
+      title: 'Net',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.blueAccent,
+          brightness: Brightness.dark,
+        ),
+      ),
       home: const AuthPage(),
       onGenerateRoute: (settings) {
         if (settings.name == '/home') {
