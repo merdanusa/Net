@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'pages/auth_page.dart';
-import 'pages/home_page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -14,18 +12,46 @@ class MyApp extends StatelessWidget {
       title: 'Net',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blueAccent,
+          seedColor: Colors.deepPurpleAccent,
           brightness: Brightness.dark,
         ),
       ),
-      home: const AuthPage(),
-      onGenerateRoute: (settings) {
-        if (settings.name == '/home') {
-          final user = settings.arguments as User;
-          return MaterialPageRoute(builder: (_) => HomePage(user: user));
-        }
-        return null;
-      },
+      home: AuthPage(),
+    );
+  }
+}
+
+class AuthPage extends StatefulWidget {
+  const AuthPage({super.key});
+
+  @override
+  State<AuthPage> createState() => _AuthPageState();
+}
+
+class _AuthPageState extends State<AuthPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Net"), centerTitle: true),
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FloatingActionButton(onPressed: () {}, child: Icon(Icons.speed)),
+          SizedBox(height: 10.0, width: 10.0),
+          FloatingActionButton(onPressed: () {}, child: Icon(Icons.add)),
+        ],
+      ),
+      bottomNavigationBar: NavigationBar(
+        destinations: [
+          NavigationDestination(icon: Icon(Icons.home), label: "Home"),
+          NavigationDestination(
+            icon: Icon(Icons.text_snippet_rounded),
+            label: "Configurations",
+          ),
+          NavigationDestination(icon: Icon(Icons.settings), label: "Options"),
+        ],
+        selectedIndex: 0,
+      ),
     );
   }
 }
