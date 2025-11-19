@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vpn/pages/reset_flow_page.dart';
+import 'package:vpn/routes/app_routes.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -18,7 +19,7 @@ class ProfilePage extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            Get.offAll(() => ResetFlowPage());
+            Get.offAllNamed(AppRoutes.resetFlow);
           },
           child: const Text("Replace Everything to Another Page"),
         ),

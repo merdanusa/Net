@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vpn/pages/home_page.dart';
+import 'package:vpn/routes/app_routes.dart';
 
 class ResetFlowPage extends StatelessWidget {
   @override
@@ -23,7 +24,7 @@ class ResetFlowPage extends StatelessWidget {
                   textCancel: "No",
                   onConfirm: () {
                     Get.back();
-                    Get.offAll(() => HomePage());
+                    Get.offAllNamed(AppRoutes.home);
                     Get.snackbar("Success", "You're redirected to home page");
                   },
                 );
