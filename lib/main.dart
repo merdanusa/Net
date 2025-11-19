@@ -1,69 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'routes/app_pages.dart';
+import 'routes/app_routes.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Net',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.deepPurpleAccent,
-          brightness: Brightness.dark,
-        ),
-      ),
-      home: const AuthPage(),
+      initialRoute: AppRoutes.home,
+      getPages: AppPages.pages,
     );
   }
-}
-
-class AuthPage extends StatefulWidget {
-  const AuthPage({super.key});
-
-  @override
-  State<AuthPage> createState() => _AuthPageState();
-}
-
-class _AuthPageState extends State<AuthPage> {
-  int currentIndex = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Net"), centerTitle: true),
-      body: currentIndex == 0
-          ? Center(child: Text('1'))
-          : currentIndex == 1
-          ? Center(child: Text("2"))
-          : Center(child: Text("3")),
-      floatingActionButton: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          FloatingActionButton(onPressed: () {}, child: Icon(Icons.speed)),
-          SizedBox(height: 10.0, width: 10.0),
-          FloatingActionButton(onPressed: () {}, child: Icon(Icons.add)),
-        ],
-      ),
-      bottomNavigationBar: NavigationBar(
-        destinations: [
-          NavigationDestination(icon: Icon(Icons.home), label: "Home"),
-          NavigationDestination(
-            icon: Icon(Icons.text_snippet_rounded),
-            label: "Configurations",
-          ),
-          NavigationDestination(icon: Icon(Icons.settings), label: "Options"),
-        ],
-        onDestinationSelected: (value) {
-          setState(() {
-            currentIndex = value;
-          });
-        },
-        selectedIndex: currentIndex,
-      ),
-    );
-    }
 }
