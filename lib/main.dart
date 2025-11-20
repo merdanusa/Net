@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:get/get.dart';
 
 import 'package:vpn/controllers/auth_controllers.dart';
+import 'package:vpn/controllers/chat_history_controller.dart';
 import 'package:vpn/screens/home_screen.dart';
 import 'package:vpn/screens/login_screen.dart';
 import 'package:vpn/screens/register_screen.dart';
@@ -65,6 +66,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(ChatHistoryController());
     Get.put(AuthController());
 
     return GetMaterialApp.router(
