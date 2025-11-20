@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp.router(
-      title: 'Sora VPN',
+      title: 'Sora',
       debugShowCheckedModeBanner: false,
       routeInformationProvider: _router.routeInformationProvider,
       routeInformationParser: _router.routeInformationParser,
