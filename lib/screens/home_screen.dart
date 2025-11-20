@@ -17,10 +17,14 @@ class HomeScreen extends StatelessWidget {
       appBar: const CustomHomeAppBar(),
       drawer: const HomeDrawer(),
       backgroundColor: const Color(0xFF0A0A0A),
-      body: Center(
-        child: Obx(() {
-          return const PromptWidget();
-        }),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(child: Container()),
+
+            const PromptWidget(),
+          ],
+        ),
       ),
     );
   }
