@@ -16,38 +16,31 @@ void main() async {
 final AuthController authController = Get.put(AuthController());
 
 final GoRouter _router = GoRouter(
-  refreshListenable: authController,
   redirect: (context, state) {
     final loggedIn = authController.isLoggedIn;
-    final loggingIn = state.subloc == '/login' || state.subloc == '/register';
+    final path = state.uri.path;
+    final loggingIn = path == '/login' || path == '/register';
+
     if (!loggedIn && !loggingIn) return '/login';
     if (loggedIn && loggingIn) return '/';
     return null;
   },
-  routes: <RouteBase>[
+  routes: [
     GoRoute(
       path: '/',
-      builder: (BuildContext context, GoRouterState state) {
-        return const HomeScreen();
-      },
-      routes: <RouteBase>[
+      builder: (context, state) => const HomeScreen(),
+      routes: [
         GoRoute(
           path: 'details',
-          builder: (BuildContext context, GoRouterState state) {
-            return const DetailsScreen();
-          },
+          builder: (context, state) => const DetailsScreen(),
         ),
         GoRoute(
           path: 'login',
-          builder: (BuildContext context, GoRouterState state) {
-            return const LoginScreen();
-          },
+          builder: (context, state) => const LoginScreen(),
         ),
         GoRoute(
           path: 'register',
-          builder: (BuildContext context, GoRouterState state) {
-            return const RegisterScreen();
-          },
+          builder: (context, state) => const RegisterScreen(),
         ),
       ],
     ),
